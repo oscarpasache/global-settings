@@ -2,9 +2,9 @@
 
 namespace OscarPasache\GlobalSettings;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class GlobalSettingsServiceProvider extends PackageServiceProvider
 {
@@ -20,7 +20,7 @@ class GlobalSettingsServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasMigration('create_global_settings_table')
             ->runsMigrations()
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishMigrations()
                     ->copyAndRegisterServiceProviderInApp()
