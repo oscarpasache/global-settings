@@ -22,7 +22,15 @@ class GlobalSettings
         if ($this->RedisRepository->checkIfPropertyExists($name)) {
             return $this->RedisRepository->getPropertyPayload($name);
         } elseif ($this->DatabaseRepository->checkIfPropertyExists($name)) {
-            return $this->DatabaseRepository->getPropertyPayload($name);
+            $payload = $this->DatabaseRepository->getPropertyPayload($name);
+
+            if ($this->RedisRepository->checkIfPropertyExists($name)) {
+                $this->RedisRepository->updatePropertyPayload($name, $payload);
+            } else {
+                $this->RedisRepository->createProperty($name, $payload);
+            }
+
+            return $payload;
         } else {
             return '';
         }
